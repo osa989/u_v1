@@ -53,7 +53,7 @@ class ChatCustomAppBar extends StatelessWidget {
                 ),
                 itemBuilder: (context) => [
                       const PopupMenuItem(
-                        value: "en-Us",
+                        value: "en_US",
                         child: Text("English"),
                       ),
                       const PopupMenuItem(
@@ -68,22 +68,3 @@ class ChatCustomAppBar extends StatelessWidget {
   }
 }
 
-class LanguageSwitcher extends StatelessWidget {
-  const LanguageSwitcher({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      itemBuilder: (BuildContext context) => [
-        const PopupMenuItem<String>(
-          child: Text('English'),
-        ),
-        const PopupMenuItem<String>(
-          child: Text('Arabic'),
-        ),
-        // Add more languages as needed
-      ],
-      icon: const Icon(Icons.language),
-    );
-  }
-}

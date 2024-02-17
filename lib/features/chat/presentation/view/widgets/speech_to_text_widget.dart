@@ -4,7 +4,7 @@ import 'package:unheard_voices/constants.dart';
 import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 
 class SpeechToTextWidget extends StatelessWidget {
-  SpeechToTextWidget({super.key});
+  const SpeechToTextWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
