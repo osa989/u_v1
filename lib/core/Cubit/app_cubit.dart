@@ -15,7 +15,6 @@ import 'package:unheard_voices/features/learn/data/category_data_details.dart';
 import 'package:unheard_voices/features/learn/presentation/view/learn_screen.dart';
 import 'package:unheard_voices/features/settings/presentation/view/settings_screen.dart';
 
-
 class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(NavigationBarInitialState());
 
@@ -27,7 +26,7 @@ class AppCubit extends Cubit<AppStates> {
   var textEditingController = TextEditingController();
 
   String gifPrediction = '';
-  
+
   late CameraController cameraController;
   Future<void>? _initialization;
   int frame = 0;
@@ -44,8 +43,9 @@ class AppCubit extends Cubit<AppStates> {
 
   double radius = 21;
 
-  List<Widget> screens =
-  [
+  String? lang;
+
+  List<Widget> screens = [
     const HomeScreenBody(),
     ChatScreen(),
     const LearnScreen(),
@@ -558,22 +558,24 @@ class AppCubit extends Cubit<AppStates> {
     "سحاب": "zipper"
   };
 
-  void changeToOpenCamera()
-  {
+  void changeToOpenCamera() {
     cameraOpen = true;
     emit(OpenCameraStream());
   }
 
-  void changeToCloseCamera()
-  {
+  void changeToCloseCamera() {
     cameraOpen = false;
     emit(CloseCameraStream());
+  }
+
+  void setSelectedValue(AppStates value) {
+    emit(value);
   }
 
   Future<void> initializeCamera() async {
     final cameras = await availableCameras();
     final frontCamera = cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.front);
+        (camera) => camera.lensDirection == CameraLensDirection.front);
     cameraController = CameraController(
       frontCamera,
       ResolutionPreset.medium,
@@ -581,7 +583,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await cameraController.initialize();
 
-    final serverUrl = Uri.parse('http://192.168.144.224:3000/upload');
+    final serverUrl = Uri.parse('http://192.168.43.161:3000/upload');
     //const Duration frameDelay = Duration(milliseconds: 2); // Adjust for 3 frames per second
     bool canSendFrame = true;
 
@@ -599,9 +601,9 @@ class AppCubit extends Cubit<AppStates> {
 
             final data = jsonDecode(response.body);
             var prediction = data['message'];
-            if (prediction.isNotEmpty && prediction != '')
-            {
-              prediction = translateToArabic[prediction.toLowerCase()] ?? 'Translation not available';
+            if (prediction.isNotEmpty && prediction != '') {
+              prediction = translateToArabic[prediction.toLowerCase()] ??
+                  'Translation not available';
               prediction += ' ';
               textEditingController.text += prediction;
               emit(PredictionWords());
@@ -622,10 +624,11 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future<void> learnCamera({categoryDataIndex, categoryDataDetailsIndex}) async {
+  Future<void> learnCamera(
+      {categoryDataIndex, categoryDataDetailsIndex}) async {
     final cameras = await availableCameras();
     final frontCamera = cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.front);
+        (camera) => camera.lensDirection == CameraLensDirection.front);
     cameraController = CameraController(
       frontCamera,
       ResolutionPreset.medium,
@@ -633,7 +636,7 @@ class AppCubit extends Cubit<AppStates> {
 
     await cameraController.initialize();
 
-    final serverUrl = Uri.parse('http://192.168.144.224:3000/upload');
+    final serverUrl = Uri.parse('http://192.168.43.161:3000/upload');
     //const Duration frameDelay = Duration(milliseconds: 2); // Adjust for 3 frames per second
     bool canSendFrame = true;
 
@@ -651,9 +654,11 @@ class AppCubit extends Cubit<AppStates> {
 
             final data = jsonDecode(response.body);
             var prediction = data['message'];
-            if (prediction.isNotEmpty && prediction != '')
-            {
-              if(prediction == categoriesData[categoryDataIndex].categoryDataDetails[categoryDataDetailsIndex].categoriesName){
+            if (prediction.isNotEmpty && prediction != '') {
+              if (prediction ==
+                  categoriesData[categoryDataIndex]
+                      .categoryDataDetails[categoryDataDetailsIndex]
+                      .categoriesName) {
                 Fluttertoast.showToast(
                   msg: 'Correct Sign',
                   toastLength: Toast.LENGTH_SHORT,
@@ -684,72 +689,63 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  List<CategoriesData> categories =
-  [
-    CategoriesData('assets/Images/1.webp','Animals'),
-    CategoriesData('assets/Images/5.jpg','Family'),
-    CategoriesData('assets/Images/6.webp','colors'),
-    CategoriesData('assets/Images/7.jpg','food'),
+  List<CategoriesData> categories = [
+    CategoriesData('assets/Images/1.webp', 'Animals'),
+    CategoriesData('assets/Images/5.jpg', 'Family'),
+    CategoriesData('assets/Images/6.webp', 'colors'),
+    CategoriesData('assets/Images/7.jpg', 'food'),
   ];
 
-  List<CategoryDataDetails> categoriesData =
-  [
+  List<CategoryDataDetails> categoriesData = [
     CategoryDataDetails(
-      categoryDataDetails:
-      [
-        CategoriesData('assets/GIF/animal.gif','animal'),
-        CategoriesData('assets/GIF/donkey.gif','donkey'),
-        CategoriesData('assets/GIF/duck.gif','duck'),
-        CategoriesData('assets/GIF/bee.gif','bee'),
-        CategoriesData('assets/GIF/bird.gif','bird'),
-        CategoriesData('assets/GIF/cat.gif','cat'),
-        CategoriesData('assets/GIF/dog.gif','dog'),
-        CategoriesData('assets/GIF/elephant.gif','elephant'),
-        CategoriesData('assets/GIF/zebra.gif','zebra'),
-        CategoriesData('assets/GIF/wolf.gif','wolf'),
-        CategoriesData('assets/GIF/mouse.gif','mouse'),
-        CategoriesData('assets/GIF/lion.gif','lion'),
-        CategoriesData('assets/GIF/frog.gif','frog'),
-        CategoriesData('assets/GIF/cow.gif','cow'),
-        CategoriesData('assets/GIF/aunt.gif','aunt'),
+      categoryDataDetails: [
+        CategoriesData('assets/GIF/animal.gif', 'animal'),
+        CategoriesData('assets/GIF/donkey.gif', 'donkey'),
+        CategoriesData('assets/GIF/duck.gif', 'duck'),
+        CategoriesData('assets/GIF/bee.gif', 'bee'),
+        CategoriesData('assets/GIF/bird.gif', 'bird'),
+        CategoriesData('assets/GIF/cat.gif', 'cat'),
+        CategoriesData('assets/GIF/dog.gif', 'dog'),
+        CategoriesData('assets/GIF/elephant.gif', 'elephant'),
+        CategoriesData('assets/GIF/zebra.gif', 'zebra'),
+        CategoriesData('assets/GIF/wolf.gif', 'wolf'),
+        CategoriesData('assets/GIF/mouse.gif', 'mouse'),
+        CategoriesData('assets/GIF/lion.gif', 'lion'),
+        CategoriesData('assets/GIF/frog.gif', 'frog'),
+        CategoriesData('assets/GIF/cow.gif', 'cow'),
+        CategoriesData('assets/GIF/aunt.gif', 'aunt'),
       ],
     ),
     CategoryDataDetails(
-      categoryDataDetails:
-      [
-        CategoriesData('assets/GIF/grandma.gif','grandma'),
-        CategoriesData('assets/GIF/grandpa.gif','grandpa'),
-        CategoriesData('assets/GIF/brother.gif','brother'),
-        CategoriesData('assets/GIF/child.gif','child'),
-        CategoriesData('assets/GIF/man.gif','man'),
-        CategoriesData('assets/GIF/mom.gif','mom'),
-        CategoriesData('assets/GIF/uncle.gif','uncle'),
+      categoryDataDetails: [
+        CategoriesData('assets/GIF/grandma.gif', 'grandma'),
+        CategoriesData('assets/GIF/grandpa.gif', 'grandpa'),
+        CategoriesData('assets/GIF/brother.gif', 'brother'),
+        CategoriesData('assets/GIF/child.gif', 'child'),
+        CategoriesData('assets/GIF/man.gif', 'man'),
+        CategoriesData('assets/GIF/mom.gif', 'mom'),
+        CategoriesData('assets/GIF/uncle.gif', 'uncle'),
       ],
     ),
     CategoryDataDetails(
-      categoryDataDetails:
-      [
-        CategoriesData('assets/GIF/black.gif','black'),
-        CategoriesData('assets/GIF/blue.gif','blue'),
-        CategoriesData('assets/GIF/brown.gif','brown'),
-        CategoriesData('assets/GIF/green.gif','green'),
-        CategoriesData('assets/GIF/orange.gif','orange'),
-        CategoriesData('assets/GIF/red.gif','red'),
-        CategoriesData('assets/GIF/yellow.gif','yellow'),
+      categoryDataDetails: [
+        CategoriesData('assets/GIF/black.gif', 'black'),
+        CategoriesData('assets/GIF/blue.gif', 'blue'),
+        CategoriesData('assets/GIF/brown.gif', 'brown'),
+        CategoriesData('assets/GIF/green.gif', 'green'),
+        CategoriesData('assets/GIF/orange.gif', 'orange'),
+        CategoriesData('assets/GIF/red.gif', 'red'),
+        CategoriesData('assets/GIF/yellow.gif', 'yellow'),
       ],
     ),
     CategoryDataDetails(
-      categoryDataDetails:
-      [
-        CategoriesData('assets/GIF/fish.gif','fish'),
+      categoryDataDetails: [
+        CategoriesData('assets/GIF/fish.gif', 'fish'),
       ],
     ),
   ];
 
-
-  Future<void> startStreaming() async {
-
-  }
+  Future<void> startStreaming() async {}
 
   void changeIndex(int index) {
     currentIndex = index;
@@ -770,28 +766,23 @@ class AppCubit extends Cubit<AppStates> {
     TextToSpeech.speak(chatList.elementAt(index));
   }
 
-  void takeVoice() async
-  {
+  void takeVoice() async {
     radius = 30;
     var available = await speechToText.initialize();
-    if(available)
-    {
+    if (available) {
       speechToText.listen(
-        onResult: (result)
-        {
+        onResult: (result) {
           takeMessage = result.recognizedWords;
         },
-        localeId: 'ar_EG', //'en_US' // 'ar_EG'
+        localeId: 'en_US', //'en_US' // 'ar_EG'
       );
       emit(StartSpeechToText());
     }
   }
 
-  void stopVoice() async
-  {
+  void stopVoice() async {
     radius = 21;
-    if(takeMessage.isNotEmpty)
-    {
+    if (takeMessage.isNotEmpty) {
       addMessage(takeMessage);
     }
     takeMessage = '';
@@ -799,23 +790,21 @@ class AppCubit extends Cubit<AppStates> {
     emit(StopSpeechToText());
   }
 
-  void updateTextFieldDesign()
-  {
+  void updateTextFieldDesign() {
     radiusCameraButton = 32;
     recordButtonVisibility = false;
     textFieldHeight = 80;
     emit(UpdateTextFieldDesign());
   }
 
-  void removeUpdateTextFieldDesign()
-  {
+  void removeUpdateTextFieldDesign() {
     radiusCameraButton = 21;
     recordButtonVisibility = true;
     textFieldHeight = 45;
     emit(RemoveUpdateTextFieldDesign());
   }
-  void addGif()
-  {
+
+  void addGif() {
     emit(AddGifPrediction());
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 abstract class AppStates
 {
 
@@ -32,4 +34,8 @@ class PredictionWords extends AppStates {}
 class AddGifPrediction extends AppStates {}
 
 class ChangeStateIndex extends AppStates {}
+
+
+
+
 
