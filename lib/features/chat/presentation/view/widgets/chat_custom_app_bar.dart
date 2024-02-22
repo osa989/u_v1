@@ -44,7 +44,6 @@ class ChatCustomAppBar extends StatelessWidget {
             SizedBox(
               width: 46,
             ),
-
             CustomLanguageMenue()
           ],
         ),
@@ -52,4 +51,3 @@ class ChatCustomAppBar extends StatelessWidget {
     );
   }
 }
-

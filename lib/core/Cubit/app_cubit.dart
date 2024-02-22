@@ -774,7 +774,7 @@ class AppCubit extends Cubit<AppStates> {
         onResult: (result) {
           takeMessage = result.recognizedWords;
         },
-        localeId: 'en_US', //'en_US' // 'ar_EG'
+        localeId: lang, //'en_US' // 'ar_EG'
       );
       emit(StartSpeechToText());
     }

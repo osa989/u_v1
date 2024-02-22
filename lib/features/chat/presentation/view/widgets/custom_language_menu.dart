@@ -12,24 +12,45 @@ class CustomLanguageMenue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(
-        padding: EdgeInsets.zero,
-        icon: const Icon(
-          Icons.language,
-          color: whiteColor,
+      padding: EdgeInsets.zero,
+      icon: const Icon(
+        Icons.language,
+        color: whiteColor,
+      ),
+      onSelected: (value) {
+        BlocProvider.of<AppCubit>(context).lang = value;
+      },
+      initialValue: "ar_EG", // Set the default selected value
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: "en_US",
+          child: Text(
+            "English",
+            style: TextStyle(
+              color: BlocProvider.of<AppCubit>(context).lang == "en_US"
+                  ? Colors.grey
+                  : null,
+              fontWeight: BlocProvider.of<AppCubit>(context).lang == "en_US"
+                  ? FontWeight.bold
+                  : null,
+            ),
+          ),
         ),
-        onSelected: (value) {
-          
-          AppCubit().lang = value;
-        },
-        itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: "en_US",
-                child: Text("English"),
-              ),
-              const PopupMenuItem(
-                value: "ar_Eg",
-                child: Text("Arabic"),
-              ),
-            ]);
+        PopupMenuItem(
+          value: "ar_EG",
+          child: Text(
+            "Arabic",
+            style: TextStyle(
+              color: BlocProvider.of<AppCubit>(context).lang == "ar_EG"
+                  ? Colors.grey
+                  : null,
+              fontWeight: BlocProvider.of<AppCubit>(context).lang == "ar_EG"
+                  ? FontWeight.bold
+                  : null,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
