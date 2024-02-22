@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unheard_voices/constants.dart';
 import 'package:unheard_voices/core/Cubit/app_cubit.dart';
-import 'package:unheard_voices/core/Cubit/app_states.dart';
+import 'package:unheard_voices/core/widgets/text_to_speech.dart';
 
 class CustomLanguageMenue extends StatelessWidget {
   const CustomLanguageMenue({
@@ -11,42 +11,45 @@ class CustomLanguageMenue extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var short = BlocProvider.of<AppCubit>(context);
     return PopupMenuButton(
       padding: EdgeInsets.zero,
       icon: const Icon(
         Icons.language,
         color: whiteColor,
       ),
+
+      initialValue: "English", // Set the default selected value
       onSelected: (value) {
-        BlocProvider.of<AppCubit>(context).lang = value;
+        if (value == "English") {
+          short.setLang(lang: "en_US", voice: "en-US");
+          short.setDir(mainlang: "English");
+          TextToSpeech.initTTs();
+        } else if (value == "Arabic") {
+          short.setLang(lang: "ar_EG", voice: "ar");
+          short.setDir(mainlang: "Arabic");
+        }
+        print(
+            " langoooooooooooooooo is ${WidgetsBinding.instance.platformDispatcher.locale.languageCode}");
       },
-      initialValue: "ar_EG", // Set the default selected value
       itemBuilder: (context) => [
         PopupMenuItem(
-          value: "en_US",
+          value: "English",
           child: Text(
             "English",
             style: TextStyle(
-              color: BlocProvider.of<AppCubit>(context).lang == "en_US"
-                  ? Colors.grey
-                  : null,
-              fontWeight: BlocProvider.of<AppCubit>(context).lang == "en_US"
-                  ? FontWeight.bold
-                  : null,
+              color: short.mainLange == "English" ? Colors.grey : null,
+              fontWeight: short.mainLange == "English" ? FontWeight.bold : null,
             ),
           ),
         ),
         PopupMenuItem(
-          value: "ar_EG",
+          value: "Arabic",
           child: Text(
             "Arabic",
             style: TextStyle(
-              color: BlocProvider.of<AppCubit>(context).lang == "ar_EG"
-                  ? Colors.grey
-                  : null,
-              fontWeight: BlocProvider.of<AppCubit>(context).lang == "ar_EG"
-                  ? FontWeight.bold
-                  : null,
+              color: short.mainLange == "Arabic" ? Colors.grey : null,
+              fontWeight: short.mainLange == "Arabic" ? FontWeight.bold : null,
             ),
           ),
         ),

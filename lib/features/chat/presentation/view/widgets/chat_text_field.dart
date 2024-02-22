@@ -16,8 +16,7 @@ class ChatTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children:
-      [
+      children: [
         const SizedBox(
           width: 6,
         ),
@@ -34,26 +33,26 @@ class ChatTextField extends StatelessWidget {
           ),
           showTwoGlows: true,
           child: GestureDetector(
-            onTapDown: (details) async{
+            onTapDown: (details) async {
               AppCubit.get(context).updateTextFieldDesign();
               AppCubit.get(context).changeToOpenCamera();
               await AppCubit.get(context).startStreaming();
             },
-            onTapUp: (details){
-              if(AppCubit.get(context).textEditingController.text.isEmpty){
+            onTapUp: (details) {
+              if (AppCubit.get(context).textEditingController.text.isEmpty) {
                 AppCubit.get(context).removeUpdateTextFieldDesign();
               }
               AppCubit.get(context).cameraController.dispose();
               AppCubit.get(context).changeToCloseCamera();
             },
             child: CircleAvatar(
-                radius: AppCubit.get(context).radiusCameraButton,
-                backgroundColor: purpleBlueColor,
-                child: const Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                  size: 20,
-                ),
+              radius: AppCubit.get(context).radiusCameraButton,
+              backgroundColor: purpleBlueColor,
+              child: const Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
         ),
@@ -61,7 +60,7 @@ class ChatTextField extends StatelessWidget {
           width: 6,
         ),
         Expanded(
-          child:Container(
+          child: Container(
             decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadius.circular(20.0),
@@ -88,10 +87,11 @@ class ChatTextField extends StatelessWidget {
                     style: const TextStyle(
                       color: Color(0xF2808080),
                     ),
-                    onSubmitted: (value)
-                    {
-                      if (AppCubit.get(context).textEditingController.text.isEmpty)
-                      {
+                    onSubmitted: (value) {
+                      if (AppCubit.get(context)
+                          .textEditingController
+                          .text
+                          .isEmpty) {
                         Fluttertoast.showToast(
                             //msg: "You can\'t send an empty message",
                             msg: "You can\'t send an empty message",
@@ -100,17 +100,17 @@ class ChatTextField extends StatelessWidget {
                             timeInSecForIosWeb: 1,
                             backgroundColor: purpleBlueColor,
                             textColor: Colors.white,
-                            fontSize: 16.0
-                        );
-                      }else{
-                        AppCubit.get(context).addMessage(AppCubit.get(context).textEditingController.text);
+                            fontSize: 16.0);
+                      } else {
+                        AppCubit.get(context).addMessage(
+                            AppCubit.get(context).textEditingController.text);
                         AppCubit.get(context).removeUpdateTextFieldDesign();
                         AppCubit.get(context).textEditingController.clear();
                       }
                     },
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        onPressed: (){},
+                        onPressed: () {},
                         padding: EdgeInsets.zero,
                         icon: const Icon(
                           Icons.attach_file,
@@ -120,10 +120,8 @@ class ChatTextField extends StatelessWidget {
                       ),
                       hintText: 'مرحبا كيف يمكنني مساعدتك؟',
                       border: InputBorder.none,
-                      hintStyle: const TextStyle(
-                          fontSize: 15,
-                          color: Colors.grey
-                      ),
+                      hintStyle:
+                          const TextStyle(fontSize: 15, color: Colors.grey),
                     ),
                   ),
                 ),
@@ -131,12 +129,11 @@ class ChatTextField extends StatelessWidget {
             ),
           ),
         ),
-        if(AppCubit.get(context).recordButtonVisibility)
+        if (AppCubit.get(context).recordButtonVisibility)
           const SizedBox(
-          width: 6,
-        ),
-        if(AppCubit.get(context).recordButtonVisibility)
-          SpeechToTextWidget(),
+            width: 6,
+          ),
+        if (AppCubit.get(context).recordButtonVisibility) SpeechToTextWidget(),
         const SizedBox(
           width: 6,
         ),
@@ -144,6 +141,3 @@ class ChatTextField extends StatelessWidget {
     );
   }
 }
-
-
-

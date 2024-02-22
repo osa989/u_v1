@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unheard_voices/constants.dart';
 import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 
 int itemIndex = 0;
 
 class ChatWidget extends StatelessWidget {
-  ChatWidget({super.key});
+  const ChatWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +14,9 @@ class ChatWidget extends StatelessWidget {
       child: ListView.builder(
         padding: EdgeInsets.zero,
         itemCount: AppCubit.get(context).chatList.length,
-        itemBuilder: (context, index)
-        {
+        itemBuilder: (context, index) {
           return Column(
-            children:
-            [
+            children: [
               Padding(
                 padding: const EdgeInsetsDirectional.symmetric(
                   horizontal: 6.0,
@@ -44,12 +43,10 @@ class ChatWidget extends StatelessWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children:
-                      [
+                      children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children:
-                          [
+                          children: [
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.only(
@@ -60,7 +57,8 @@ class ChatWidget extends StatelessWidget {
                                 ),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: const Color.fromRGBO(229, 232, 232, 0.35),
+                                    color: const Color.fromRGBO(
+                                        229, 232, 232, 0.35),
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   child: Padding(
@@ -68,7 +66,7 @@ class ChatWidget extends StatelessWidget {
                                     child: Text(
                                       '${AppCubit.get(context).chatList[index]}',
                                       maxLines: 8,
-                                      textAlign: TextAlign.right,
+                                      textAlign: BlocProvider.of<AppCubit>(context).mainLange=="Arabic" ? TextAlign.right : TextAlign.left,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontSize: 15,
@@ -84,8 +82,7 @@ class ChatWidget extends StatelessWidget {
                               width: 20,
                               height: 18,
                               child: IconButton(
-                                onPressed: ()
-                                {
+                                onPressed: () {
                                   AppCubit.get(context).removeMessage(index);
                                 },
                                 padding: EdgeInsets.zero,
@@ -98,7 +95,8 @@ class ChatWidget extends StatelessWidget {
                             ),
                           ],
                         ),
-                        if(AppCubit.get(context).gifPrediction.isNotEmpty && index == itemIndex)
+                        if (AppCubit.get(context).gifPrediction.isNotEmpty &&
+                            index == itemIndex)
                           Padding(
                             padding: const EdgeInsetsDirectional.only(
                               start: 14,
@@ -108,22 +106,20 @@ class ChatWidget extends StatelessWidget {
                               height: 168,
                               width: 300,
                               clipBehavior: Clip.hardEdge,
-                              decoration:BoxDecoration(
+                              decoration: BoxDecoration(
                                 color: whiteColor,
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(
-                                    width: 1,
-                                    color: purpleBlueColor
-                                ),
+                                    width: 1, color: purpleBlueColor),
                               ),
                               child: Image(
-                                image: AssetImage('assets/GIF/${AppCubit.get(context).gifPrediction}.gif'),
+                                image: AssetImage(
+                                    'assets/GIF/${AppCubit.get(context).gifPrediction}.gif'),
                               ),
                             ),
                           ),
                         Row(
-                          children:
-                          [
+                          children: [
                             CircleAvatar(
                               radius: 14,
                               backgroundColor: purpleBlueColor,
@@ -134,8 +130,7 @@ class ChatWidget extends StatelessWidget {
                                   width: 28,
                                   height: 18,
                                   child: IconButton(
-                                    onPressed: ()
-                                    {
+                                    onPressed: () {
                                       AppCubit.get(context).startSpeak(index);
                                     },
                                     padding: EdgeInsets.zero,
@@ -161,8 +156,7 @@ class ChatWidget extends StatelessWidget {
                                   width: 28,
                                   height: 18,
                                   child: IconButton(
-                                    onPressed: ()
-                                    {
+                                    onPressed: () {
                                       print(itemIndex);
                                       AppCubit.get(context).startSpeak(index);
                                     },
@@ -189,19 +183,24 @@ class ChatWidget extends StatelessWidget {
                                   width: 28,
                                   height: 18,
                                   child: IconButton(
-                                    onPressed: () async
-                                    {
+                                    onPressed: () async {
                                       itemIndex = index;
-                                      final sentence = AppCubit.get(context).chatList[index];
+                                      final sentence =
+                                          AppCubit.get(context).chatList[index];
                                       List words = sentence.split(" ");
-                                      for (final word in words)
-                                      {
-                                        if(word.isNotEmpty)
-                                        {
-                                          var englishPrediction = AppCubit.get(context).translateToEnglish[word.toLowerCase()] ?? 'Translation not available';
-                                          AppCubit.get(context).gifPrediction = englishPrediction;
+                                      for (final word in words) {
+                                        if (word.isNotEmpty) {
+                                          var englishPrediction =
+                                              AppCubit.get(context)
+                                                          .translateToEnglish[
+                                                      word.toLowerCase()] ??
+                                                  'Translation not available';
+                                          AppCubit.get(context).gifPrediction =
+                                              englishPrediction;
                                           AppCubit.get(context).addGif();
-                                          await Future.delayed(const Duration(milliseconds: 2400)); // Adjust delay as needed
+                                          await Future.delayed(const Duration(
+                                              milliseconds:
+                                                  2400)); // Adjust delay as needed
                                         }
                                       }
 

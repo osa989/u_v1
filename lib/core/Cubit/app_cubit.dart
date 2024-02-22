@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,7 +44,21 @@ class AppCubit extends Cubit<AppStates> {
 
   double radius = 21;
 
-  String? lang;
+  String mainLange = "ُEnglish";
+
+  String? lange;
+
+  setLang({required String lang, required String voice}) {
+    lange = lang;
+    TextToSpeech.tts.setLanguage(voice);
+    // mainLange = mainLang;
+  }
+
+
+
+  setDir({required String mainlang}) {
+    mainLange = mainlang;
+  }
 
   List<Widget> screens = [
     const HomeScreenBody(),
@@ -774,7 +789,7 @@ class AppCubit extends Cubit<AppStates> {
         onResult: (result) {
           takeMessage = result.recognizedWords;
         },
-        localeId: lang, //'en_US' // 'ar_EG'
+        localeId: lange, //'en_US' // 'ar_EG'
       );
       emit(StartSpeechToText());
     }

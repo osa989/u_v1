@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unheard_voices/constants.dart';
+import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 import 'package:unheard_voices/features/chat/presentation/view/widgets/custom_language_menu.dart';
 
 class ChatCustomAppBar extends StatelessWidget {
@@ -15,7 +17,7 @@ class ChatCustomAppBar extends StatelessWidget {
             bottomRight:
                 Radius.circular(20)), // Set your desired border radius here
       ),
-      child: const Padding(
+      child:  const Padding(
         padding: EdgeInsetsDirectional.only(
           top: 8,
           start: 10,
@@ -44,7 +46,9 @@ class ChatCustomAppBar extends StatelessWidget {
             SizedBox(
               width: 46,
             ),
-            CustomLanguageMenue()
+            CustomLanguageMenue(
+
+            )
           ],
         ),
       ),
