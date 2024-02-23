@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unheard_voices/constants.dart';
-import 'package:unheard_voices/core/Cubit/app_cubit.dart';
-
 import 'package:unheard_voices/core/widgets/text_to_speech.dart';
 import 'package:unheard_voices/core/Cubit/bloc_observer.dart';
 import 'package:unheard_voices/features/splash/presentation/view/splash_screen.dart';

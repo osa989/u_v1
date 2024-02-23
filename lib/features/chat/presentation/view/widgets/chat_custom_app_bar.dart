@@ -17,9 +17,9 @@ class ChatCustomAppBar extends StatelessWidget {
             bottomRight:
                 Radius.circular(20)), // Set your desired border radius here
       ),
-      child:  const Padding(
+      child: const Padding(
         padding: EdgeInsetsDirectional.only(
-          top: 8,
+          top: 10,
           start: 10,
           end: 10,
         ),
@@ -46,9 +46,7 @@ class ChatCustomAppBar extends StatelessWidget {
             SizedBox(
               width: 46,
             ),
-            CustomLanguageMenue(
-
-            )
+            CustomLanguageMenue()
           ],
         ),
       ),

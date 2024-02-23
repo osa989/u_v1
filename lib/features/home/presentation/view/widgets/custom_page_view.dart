@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:unheard_voices/constants.dart';
 
-
 class CustomPageView extends StatefulWidget {
   const CustomPageView({super.key});
 
@@ -108,9 +107,12 @@ class ImagePlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      imagePath!,
-      fit: BoxFit.cover,
+    return Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+      child: Image.asset(
+        imagePath!,
+        fit: BoxFit.cover,
+      ),
     );
   }
 }

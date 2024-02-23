@@ -10,29 +10,37 @@ class HomeScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-        ChatCustomAppBar(),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomPageView(),
-              Gap(20),
-              Text(
-                "Favorite Signs",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
-              CustomFavoritesSection(),
-              Gap(20),
-              SignOfTheDay(
-                languageName: 'english',
-                imageUrl: 'assets/GIF/all.gif',
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const ChatCustomAppBar(),
+        Expanded(
+          child: ListView(
+            children: const [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 1),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomPageView(),
+                    Gap(20),
+                    Text(
+                      "Favorite Signs",
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                    ),
+                    CustomFavoritesSection(),
+                    Gap(20),
+                    SignOfTheDay(
+                      languageName: 'english',
+                      imageUrl: 'assets/GIF/all.gif',
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
-        )
+        ),
       ],
     );
   }
