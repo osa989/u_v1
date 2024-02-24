@@ -42,10 +42,10 @@ class ChatCustomAppBar extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: 46,
+              width: 70,
             ),
-            CustomLanguageMenue()
-          ],
+            CustomLanguageMenu()
+          ], 
         ),
       ),
     );

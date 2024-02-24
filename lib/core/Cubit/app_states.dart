@@ -34,9 +34,7 @@ class PredictionWords extends AppStates {}
 class AddGifPrediction extends AppStates {}
 
 class ChangeStateIndex extends AppStates {}
-class InitialLang extends AppStates {
 
-}
 
 
 

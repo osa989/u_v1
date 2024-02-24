@@ -42,6 +42,7 @@ class ChatTextField extends StatelessWidget {
               if (AppCubit.get(context).textEditingController.text.isEmpty) {
                 AppCubit.get(context).removeUpdateTextFieldDesign();
               }
+                // AppCubit.get(context).removeUpdateTextFieldDesign();
               AppCubit.get(context).cameraController.dispose();
               AppCubit.get(context).changeToCloseCamera();
             },
@@ -79,7 +80,7 @@ class ChatTextField extends StatelessWidget {
                   height: AppCubit.get(context).textFieldHeight,
                   child: TextField(
                     // autofocus: true,
-                    textAlign: TextAlign.right,
+                    textAlign:TextAlign.right,
                     maxLines: 4,
                     textInputAction: TextInputAction.send,
                     controller: AppCubit.get(context).textEditingController,

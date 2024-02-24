@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,19 +43,43 @@ class AppCubit extends Cubit<AppStates> {
 
   double radius = 21;
 
-  String mainLange = "ُEnglish";
+//OSAMA CODE START
 
-  String? lange;
+  String mainLange =
+      WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 
-  setLang({required String lang, required String voice}) {
-    lange = lang;
-    TextToSpeech.tts.setLanguage(voice);
-    // mainLange = mainLang;
+  // ar if arabic 
+  // en if english 
+  // fr if french
+
+  late String lange; // mic languages
+  late String voice; //voice read language
+  
+  checkMicLang() {
+    if (mainLange == "ar") {
+      lange = "ar_EG";
+    } else if (mainLange == "en") {
+      lange = "en_US";
+    } else if (mainLange == "fr") {
+      lange = "fr_FR";
+    }
+    return lange;
   }
 
-  setDir({required String mainlang}) {
-    mainLange = mainlang;
+
+//detect the main language to specify the language of the reader
+  void detect_lang_TTS(String value) {
+    if (value == "ar") {
+      TextToSpeech.tts.setLanguage("ar");
+    } else if (value == "en") {
+      TextToSpeech.tts.setLanguage("en-US");
+    } else if (value == "fr") {
+      TextToSpeech.tts.setLanguage("fr-FR");
+    }
   }
+
+  //OSAMA CODE END 
+
 
   List<Widget> screens = [
     const HomeScreenBody(),
@@ -615,10 +638,13 @@ class AppCubit extends Cubit<AppStates> {
             final data = jsonDecode(response.body);
             var prediction = data['message'];
             if (prediction.isNotEmpty && prediction != '') {
-              if(mainLange =="Arabic"){
-              prediction = translateToArabic[prediction.toLowerCase()] ??
-                  'Translation not available';
+              //OSAMA CODE Start
+              //detect if the main lang was arabic to translate the sign to arabic 
+              if (mainLange == "ar") {
+                prediction = translateToArabic[prediction.toLowerCase()] ??
+                    'Translation not available';
               }
+              //OSAMA CODE End
               prediction += ' ';
               textEditingController.text += prediction;
               emit(PredictionWords());
@@ -789,7 +815,7 @@ class AppCubit extends Cubit<AppStates> {
         onResult: (result) {
           takeMessage = result.recognizedWords;
         },
-        localeId: lange, //'en_US' // 'ar_EG'
+        localeId: checkMicLang(), //'en_US' // 'ar_EG'
       );
       emit(StartSpeechToText());
     }

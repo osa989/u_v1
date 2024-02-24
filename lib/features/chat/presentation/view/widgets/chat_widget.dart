@@ -6,7 +6,7 @@ import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 int itemIndex = 0;
 
 class ChatWidget extends StatelessWidget {
-  const ChatWidget({super.key});
+   ChatWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +66,13 @@ class ChatWidget extends StatelessWidget {
                                     child: Text(
                                       '${AppCubit.get(context).chatList[index]}',
                                       maxLines: 8,
+                                      //OSAMA CODE START
                                       textAlign:
-                                          BlocProvider.of<AppCubit>(context)
-                                                      .mainLange ==
-                                                  "Arabic"
+                                          AppCubit.get(context).mainLange ==
+                                                  "ar"
                                               ? TextAlign.right
                                               : TextAlign.left,
+                                      //OSAMA CODE END
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontSize: 15,

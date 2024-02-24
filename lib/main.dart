@@ -16,6 +16,7 @@ void main() async {
     statusBarColor: Color(0x9D5D7AFA),
   ));
   TextToSpeech.initTTs();
+
   runApp(
     const MyApp(),
   );

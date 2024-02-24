@@ -16,9 +16,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(listener: (context, state) {
-      if (state is InitialLang) {
-        
-      }
+
     }, builder: (context, state) {
       return Scaffold(
         body: Column(
@@ -26,7 +24,7 @@ class ChatScreen extends StatelessWidget {
             const ChatCustomAppBar(),
             AppCubit.get(context).cameraOpen
                 ? const StreamCameraWidget2()
-                : ChatWidget(),
+                :  ChatWidget(),
             if (isTyping) ...[
               const SpinKitThreeBounce(
                 color: Colors.grey,
