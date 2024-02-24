@@ -78,7 +78,7 @@ class ChatTextField extends StatelessWidget {
                 child: SizedBox(
                   height: AppCubit.get(context).textFieldHeight,
                   child: TextField(
-                    autofocus: true,
+                    // autofocus: true,
                     textAlign: TextAlign.right,
                     maxLines: 4,
                     textInputAction: TextInputAction.send,

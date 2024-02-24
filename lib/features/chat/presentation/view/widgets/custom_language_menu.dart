@@ -35,22 +35,46 @@ class CustomLanguageMenue extends StatelessWidget {
       itemBuilder: (context) => [
         PopupMenuItem(
           value: "English",
-          child: Text(
-            "English",
-            style: TextStyle(
-              color: short.mainLange == "English" ? Colors.grey : null,
-              fontWeight: short.mainLange == "English" ? FontWeight.bold : null,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "English",
+                style: TextStyle(
+                  color: short.mainLange == "English"
+                      ? Colors.grey
+                      : purpleBlueColor,
+                  fontWeight:
+                      short.mainLange == "English" ? FontWeight.bold : null,
+                ),
+              ),
+              Image.asset(
+                "assets/Images/flag1.png",
+                width: 27,
+              ),
+            ],
           ),
         ),
         PopupMenuItem(
           value: "Arabic",
-          child: Text(
-            "Arabic",
-            style: TextStyle(
-              color: short.mainLange == "Arabic" ? Colors.grey : null,
-              fontWeight: short.mainLange == "Arabic" ? FontWeight.bold : null,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "Arabic ",
+                style: TextStyle(
+                  color: short.mainLange == "Arabic"
+                      ? Colors.grey
+                      : purpleBlueColor,
+                  fontWeight:
+                      short.mainLange == "Arabic" ? FontWeight.bold : null,
+                ),
+              ),
+              Image.asset(
+                "assets/Images/flag2.png",
+                width: 27,
+              ),
+            ],
           ),
         ),
       ],

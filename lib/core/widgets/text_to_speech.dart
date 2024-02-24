@@ -1,6 +1,4 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 
 class TextToSpeech {
   static FlutterTts tts = FlutterTts();

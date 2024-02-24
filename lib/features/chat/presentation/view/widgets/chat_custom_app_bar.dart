@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:unheard_voices/constants.dart';
-import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 import 'package:unheard_voices/features/chat/presentation/view/widgets/custom_language_menu.dart';
 
 class ChatCustomAppBar extends StatelessWidget {

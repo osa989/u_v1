@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:unheard_voices/constants.dart';
 import 'package:unheard_voices/features/settings/presentation/view/widgets/address_screen.dart';
-import 'package:unheard_voices/features/settings/presentation/view/widgets/settings_screen_body.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);

@@ -3,11 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:unheard_voices/core/Cubit/app_cubit.dart';
 import 'package:unheard_voices/core/Cubit/app_states.dart';
-import 'package:unheard_voices/core/widgets/text_to_speech.dart';
 import 'package:unheard_voices/features/chat/presentation/view/widgets/chat_widget.dart';
 import 'package:unheard_voices/features/chat/presentation/view/widgets/chat_custom_app_bar.dart';
 import 'package:unheard_voices/features/chat/presentation/view/widgets/chat_text_field.dart';
-import 'package:unheard_voices/features/chat/presentation/view/widgets/stream_camera_widget.dart';
 import 'package:unheard_voices/features/chat/presentation/view/widgets/stream_camera_widget2.dart';
 
 class ChatScreen extends StatelessWidget {

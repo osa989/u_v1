@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -29,14 +28,13 @@ class _CameraStreamWidgetState extends State<CameraStreamWidget> {
   Future<void> initializeCamera() async {
     final cameras = await availableCameras();
     final frontCamera = cameras.firstWhere(
-            (camera) => camera.lensDirection == CameraLensDirection.front);
+        (camera) => camera.lensDirection == CameraLensDirection.front);
     cameraController = CameraController(
       frontCamera,
       ResolutionPreset.medium,
     );
 
     await cameraController.initialize();
-
 
     if (mounted) {
       setState(() {});
@@ -47,7 +45,8 @@ class _CameraStreamWidgetState extends State<CameraStreamWidget> {
 
   Future<void> startStreaming() async {
     final serverUrl = Uri.parse('http://192.168.170.224:3000/upload');
-    const Duration frameDelay = Duration(milliseconds: 333); // Adjust for 3 frames per second
+    const Duration frameDelay =
+        Duration(milliseconds: 333); // Adjust for 3 frames per second
     bool canSendFrame = true;
 
     if (cameraController.value.isInitialized) {
@@ -106,13 +105,10 @@ class _CameraStreamWidgetState extends State<CameraStreamWidget> {
         height: 560,
         width: 350,
         clipBehavior: Clip.hardEdge,
-        decoration:BoxDecoration(
+        decoration: BoxDecoration(
           color: whiteColor,
           borderRadius: BorderRadius.circular(8.0),
-          border: Border.all(
-            width: 1,
-            color: purpleBlueColor
-          ),
+          border: Border.all(width: 1, color: purpleBlueColor),
         ),
         child: FutureBuilder(
           future: _initialization,
@@ -129,7 +125,8 @@ class _CameraStreamWidgetState extends State<CameraStreamWidget> {
                 return const Text('Camera initialization failed');
               }
             } else {
-              return const Center(child: CircularProgressIndicator(
+              return const Center(
+                  child: CircularProgressIndicator(
                 color: purpleBlueColor,
               ));
             }

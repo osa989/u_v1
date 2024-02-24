@@ -66,7 +66,12 @@ class ChatWidget extends StatelessWidget {
                                     child: Text(
                                       '${AppCubit.get(context).chatList[index]}',
                                       maxLines: 8,
-                                      textAlign: BlocProvider.of<AppCubit>(context).mainLange=="Arabic" ? TextAlign.right : TextAlign.left,
+                                      textAlign:
+                                          BlocProvider.of<AppCubit>(context)
+                                                      .mainLange ==
+                                                  "Arabic"
+                                              ? TextAlign.right
+                                              : TextAlign.left,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontSize: 15,

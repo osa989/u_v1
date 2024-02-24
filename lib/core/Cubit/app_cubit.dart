@@ -54,8 +54,6 @@ class AppCubit extends Cubit<AppStates> {
     // mainLange = mainLang;
   }
 
-
-
   setDir({required String mainlang}) {
     mainLange = mainlang;
   }
@@ -617,8 +615,10 @@ class AppCubit extends Cubit<AppStates> {
             final data = jsonDecode(response.body);
             var prediction = data['message'];
             if (prediction.isNotEmpty && prediction != '') {
+              if(mainLange =="Arabic"){
               prediction = translateToArabic[prediction.toLowerCase()] ??
                   'Translation not available';
+              }
               prediction += ' ';
               textEditingController.text += prediction;
               emit(PredictionWords());
